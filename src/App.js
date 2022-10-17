@@ -3,6 +3,24 @@
 function App() {
   return (
     <div className="wrapper clear">
+      <div className="overlay">
+        <div className="drawer">
+          <h2>Корзина</h2>
+          
+          <div className="cart-item d-flex align-center">
+            <div
+              style={{ backgroundImage: 'url(/img/sneakers/1.jspg)'}}
+              className="cartItemImg">
+            </div>
+            <div className="mr-20">
+              <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
+              <strong>12 999 руб.</strong>
+            </div>
+            <img className="remove-btn" src="/img/btn-remove.svg" alt="remove"/>
+          </div>
+        </div>
+      </div>
+
       <header className="d-flex justify-between align-center p-40">
         <div className="d-flex align-center">
           <img src="/img/logo.svg" alt="logo"/>
@@ -32,6 +50,9 @@ function App() {
 
         <div className="card-wrapper">
           <div className="card">
+            <div className="favorite">
+              <img src="/img/heart-unliked.svg" alt="unliked" />
+            </div>
             <img width={133} height={112} src="/img/sneakers/1.jpg" alt=""/>
             <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
             <div className="d-flex justify-between align-center">
