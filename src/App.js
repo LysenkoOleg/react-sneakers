@@ -31,6 +31,9 @@ function App() {
                 title={card.title}
                 price={card.price}
                 imageUrl={card.imageUrl}
+                key={index}
+                onFavorite={() => console.log('Добавили в закладки')}
+                onPlus={() => console.log('Нажали плюс')}
               />)
           }
         </div>
