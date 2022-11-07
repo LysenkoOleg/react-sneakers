@@ -1,13 +1,11 @@
 import React from 'react';
+import styles from './Card.module.scss'
 
-const Card = (props) => {
-  const onClickButton = () => {
-    alert(props.title)
-  }
+const Index = (props) => {
 
   return (
-    <div className="card">
-      <div className="favorite">
+    <div className={styles.card}>
+      <div className={styles.favorite}>
         <img src="/img/heart-unliked.svg" alt="unliked" />
       </div>
       <img width={133} height={112} src={props.imageUrl} alt=""/>
@@ -17,7 +15,7 @@ const Card = (props) => {
           <span>Цена:</span>
           <b>{props.price}</b>
         </div>
-        <button className="button" onClick={onClickButton}>
+        <button className="button">
           <img src="/img/plus.svg" alt="plus"/>
         </button>
       </div>
@@ -26,4 +24,4 @@ const Card = (props) => {
 };
 
 
-export default Card;
+export default Index;
