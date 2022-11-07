@@ -4,8 +4,10 @@ import Header from "./components/Header";
 import Drawer from "./components/Drawer";
 
 const cards = [
-  {name: "Мужские Кроссовки Nike Blazer Mid Suede", price: 12999},
-  {name: "Мужские Кроссовки Nike Air Max 270", price: 15600},
+  {title: "Мужские Кроссовки Nike Blazer Mid Suede", price: 12999, imageUrl: 'img/sneakers/1.jpg'},
+  {title: "Мужские Кроссовки Nike Air Max 270", price: 15600, imageUrl: 'img/sneakers/2.jpg'},
+  {title: "Мужские Кроссовки Nike Air Max 270", price: 15600, imageUrl: 'img/sneakers/3.jpg'},
+  {title: "Мужские Кроссовки Nike Air Max 270", price: 15600, imageUrl: 'img/sneakers/4.jpg'}
 ]
 
 function App() {
@@ -24,7 +26,12 @@ function App() {
 
         <div className="card-wrapper">
           {
-            cards.map((card, index) => <Card title={card.name} price={card.price}/>)
+            cards.map((card, index) =>
+              <Card
+                title={card.title}
+                price={card.price}
+                imageUrl={card.imageUrl}
+              />)
           }
         </div>
       </div>
