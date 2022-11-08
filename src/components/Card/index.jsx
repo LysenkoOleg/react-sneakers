@@ -18,7 +18,7 @@ const Card = (props) => {
       <div className="d-flex justify-between align-center">
         <div className="d-flex flex-column">
           <span>Цена:</span>
-          <b>{props.price}</b>
+          <b>{props.price} руб.</b>
         </div>
         <img className={styles.plus} src={isAdded ? "/img/btn-checked.svg" : "/img/btn-plus.svg"} alt="plus" onClick={onClickPlus} />
       </div>
