@@ -3,18 +3,20 @@ import Card from "./components/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
 
-const cards = [
-  {title: "Мужские Кроссовки Nike Blazer Mid Suede", price: 12999, imageUrl: 'img/sneakers/1.jpg'},
-  {title: "Мужские Кроссовки Nike Air Max 270", price: 15600, imageUrl: 'img/sneakers/2.jpg'},
-  {title: "Мужские Кроссовки Nike Air Max 270", price: 15600, imageUrl: 'img/sneakers/3.jpg'},
-  {title: "Мужские Кроссовки Nike Air Max 270", price: 15600, imageUrl: 'img/sneakers/4.jpg'}
-]
-
 function App() {
+  const [cards, setCards] = React.useState([]);
+  const [cartOpened, setCartOpened] = React.useState(false);
+
+  React.useEffect( () => {
+    fetch('https://636a08f8c07d8f936d913add.mockapi.io/items')
+      .then(res => res.json())
+      .then(json => setCards(json))
+  }, []);
+
   return (
     <div className="wrapper clear">
-      <Drawer />
-      <Header />
+      { cartOpened && <Drawer onClickClose={() => setCartOpened(false)} /> }
+      <Header onClickCart={() => setCartOpened(true)}/>
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
           <h1>Все кроссовки</h1>
@@ -33,7 +35,6 @@ function App() {
                 imageUrl={card.imageUrl}
                 key={index}
                 onFavorite={() => console.log('Добавили в закладки')}
-                onPlus={() => console.log('Нажали плюс')}
               />)
           }
         </div>
