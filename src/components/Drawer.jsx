@@ -4,7 +4,10 @@ const Drawer = ({ onClickClose, cartItems }) => {
   return (
     <div className="overlay">
       <div className="drawer">
-        <h2 onClick={onClickClose} className="mb-30 d-flex justify-between">Корзина <img className="cu-p" src="/img/btn-remove.svg" alt="remove"/></h2>
+        <h2 onClick={onClickClose} className="mb-30 d-flex justify-between">
+          Корзина
+          <img className="cu-p" src="/img/btn-remove.svg" alt="remove"/>
+        </h2>
         <div className="items">
           { cartItems.map((item, index) => (
             <div className="cartItem d-flex align-center mb-20" key={index}>
