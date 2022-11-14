@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from 'react';
 import axios from "axios"
 import Card from "./components/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
 
 function App() {
-  const [cards, setCards] = React.useState([]);
-  const [cartItems, setCartItems] = React.useState([]);
-  const [searchValue, setSearchValue] = React.useState('');
-  const [cartOpened, setCartOpened] = React.useState(false);
+  const [cards, setCards] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [cartOpened, setCartOpened] = useState(false);
 
   React.useEffect( () => {
     axios.get('https://636a08f8c07d8f936d913add.mockapi.io/items').then(res => {
@@ -22,6 +23,11 @@ function App() {
   const onAddToCart = (obj) => {
     axios.post('https://636a08f8c07d8f936d913add.mockapi.io/cart', obj)
     setCartItems(prev => [...prev, obj])
+  }
+
+  const onAddToFavorite = (obj) => {
+    axios.post('https://636a08f8c07d8f936d913add.mockapi.io/favorites', obj)
+    setFavorites(prev => [...prev, obj])
   }
 
   const onRemoveItem = (id) => {
@@ -57,7 +63,7 @@ function App() {
                 price={card.price}
                 imageUrl={card.imageUrl}
                 key={index}
-                onFavorite={() => console.log('Добавили в закладки')}
+                onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj, isAdded) => onAddToCart(obj, isAdded)}
               />
             ))
