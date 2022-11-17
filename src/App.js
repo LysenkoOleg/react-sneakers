@@ -13,15 +13,17 @@ function App() {
   const [favorites, setFavorites] = useState([]);
 
   React.useEffect( () => {
-    axios.get('https://636a08f8c07d8f936d913add.mockapi.io/items').then(res => {
-      setCards(res.data)
-    })
-    axios.get('https://636a08f8c07d8f936d913add.mockapi.io/cart').then(res => {
-      setCartItems(res.data)
-    })
-    axios.get('https://636a08f8c07d8f936d913add.mockapi.io/favorites').then(res => {
-      setFavorites(res.data)
-    })
+    async function fetchData() {
+      const cartResponse = await axios.get('https://636a08f8c07d8f936d913add.mockapi.io/cart')
+      const favoriteResponse = await axios.get('https://636a08f8c07d8f936d913add.mockapi.io/favorites')
+      const itemsResponse = await axios.get('https://636a08f8c07d8f936d913add.mockapi.io/items')
+
+      setCartItems(cartResponse.data)
+      setFavorites(favoriteResponse.data)
+      setCards(itemsResponse.data)
+    }
+
+    fetchData();
   }, []);
 
   const onAddToFavorite = async (obj) => {
@@ -56,6 +58,7 @@ function App() {
           element={
           <Home
             cards={cards}
+            cartItems={cartItems}
             setCartItems={setCartItems}
             setFavorites={setFavorites}
             onAddToFavorite={onAddToFavorite}

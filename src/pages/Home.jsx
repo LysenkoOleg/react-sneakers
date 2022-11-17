@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import Card from '../components/Card';
 import axios from 'axios';
 
-const Home = ({ setCartItems, cards, onAddToFavorite }) => {
+const Home = ({ setCartItems, cartItems, cards, onAddToFavorite }) => {
 	const [searchValue, setSearchValue] = useState('');
 
 	const onAddToCart = (obj) => {
-		axios.post('https://636a08f8c07d8f936d913add.mockapi.io/cart', obj)
-		setCartItems(prev => [...prev, obj])
+		console.log(obj);
+			if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
+				axios.delete(`https://636a08f8c07d8f936d913add.mockapi.io/cart/${obj.id}`)
+				setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
+			} else {
+				axios.post('https://636a08f8c07d8f936d913add.mockapi.io/cart', obj)
+				setCartItems(prev => [...prev, obj])
+			}
 	}
 
 	const onChangeSearchInput = (event) => {
@@ -32,6 +38,7 @@ const Home = ({ setCartItems, cards, onAddToFavorite }) => {
 						.map((card, index) => (
 							<Card
 								key={index}
+								added={cartItems.some(obj => Number(obj.id) === Number(card.id))}
 								onFavorite={(obj) => onAddToFavorite(obj)}
 								onPlus={(obj, isAdded) => onAddToCart(obj, isAdded)}
 								{...card}
