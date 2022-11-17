@@ -27,7 +27,6 @@ const Home = ({ setCartItems, cartItems, cards, onAddToFavorite, isLoading }) =>
 			.map((card, index) => (
 				<Card
 					key={index}
-					added={cartItems.some(obj => Number(obj.id) === Number(card.id))}
 					loading={isLoading}
 					onFavorite={(obj) => onAddToFavorite(obj)}
 					onPlus={(obj, isAdded) => onAddToCart(obj, isAdded)}

@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import Skeleton from '../Skeleton/Skeleton';
 import styles from './Card.module.scss'
+import AppContext from '../../context';
 
-const Card = ({ onFavorite, imageUrl, price, title, id, onPlus, favorited = false, added = false, loading }) => {
-  const [isAdded, setIsAdded] = useState(added)
+const Card = ({
+                onFavorite,
+                imageUrl, price,
+                title, id,
+                onPlus,
+                favorited = false,
+                loading = false
+}) => {
+  const { isItemAdded } = React.useContext(AppContext)
   const [isFavorite, setIsFavorite] = useState(favorited)
 
   const onClickPlus = () => {
-    setIsAdded(prevState => !prevState)
     onPlus({ title, price, imageUrl, id });
   }
 
@@ -34,7 +41,7 @@ const Card = ({ onFavorite, imageUrl, price, title, id, onPlus, favorited = fals
                 <span>Цена:</span>
                 <b>{price} руб.</b>
               </div>
-              <img className={styles.plus} src={isAdded ? "/img/btn-checked.svg" : "/img/btn-plus.svg"} alt="plus" onClick={onClickPlus} />
+              <img className={styles.plus} src={isItemAdded(id) ? "/img/btn-checked.svg" : "/img/btn-plus.svg"} alt="plus" onClick={onClickPlus} />
             </div>
           </>
           )
