@@ -11,19 +11,19 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [cards, setCards] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   React.useEffect( () => {
-    async function fetchData() {
+    (async function () {
       const cartResponse = await axios.get('https://636a08f8c07d8f936d913add.mockapi.io/cart')
       const favoriteResponse = await axios.get('https://636a08f8c07d8f936d913add.mockapi.io/favorites')
       const itemsResponse = await axios.get('https://636a08f8c07d8f936d913add.mockapi.io/items')
 
+      setIsLoading(false)
       setCartItems(cartResponse.data)
       setFavorites(favoriteResponse.data)
       setCards(itemsResponse.data)
-    }
-
-    fetchData();
+    })();
   }, []);
 
   const onAddToFavorite = async (obj) => {
@@ -52,7 +52,6 @@ function App() {
       }
 
       <Header onClickCart={() => setCartOpened(true)}/>
-
       <Routes>
         <Route path="/"
           element={
@@ -62,6 +61,7 @@ function App() {
             setCartItems={setCartItems}
             setFavorites={setFavorites}
             onAddToFavorite={onAddToFavorite}
+            isLoading={isLoading}
           />
         }
         />

@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import Card from '../components/Card';
 import axios from 'axios';
 
-const Home = ({ setCartItems, cartItems, cards, onAddToFavorite }) => {
+const Home = ({ setCartItems, cartItems, cards, onAddToFavorite, isLoading }) => {
 	const [searchValue, setSearchValue] = useState('');
 
 	const onAddToCart = (obj) => {
-		console.log(obj);
 			if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
 				axios.delete(`https://636a08f8c07d8f936d913add.mockapi.io/cart/${obj.id}`)
 				setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
@@ -18,6 +17,23 @@ const Home = ({ setCartItems, cartItems, cards, onAddToFavorite }) => {
 
 	const onChangeSearchInput = (event) => {
 		setSearchValue(event.target.value)
+	}
+
+	const renderItems = () => {
+		return (isLoading
+			? [...Array(12)]
+			: cards.filter((card) => card.title.toLowerCase().includes(searchValue.toLowerCase()))
+		)
+			.map((card, index) => (
+				<Card
+					key={index}
+					added={cartItems.some(obj => Number(obj.id) === Number(card.id))}
+					loading={isLoading}
+					onFavorite={(obj) => onAddToFavorite(obj)}
+					onPlus={(obj, isAdded) => onAddToCart(obj, isAdded)}
+					{...card}
+				/>
+			))
 	}
 
 	return (
@@ -32,19 +48,7 @@ const Home = ({ setCartItems, cartItems, cards, onAddToFavorite }) => {
 			</div>
 
 			<div className="card-wrapper">
-				{
-					cards
-						.filter((card) => card.title.toLowerCase().includes(searchValue.toLowerCase()))
-						.map((card, index) => (
-							<Card
-								key={index}
-								added={cartItems.some(obj => Number(obj.id) === Number(card.id))}
-								onFavorite={(obj) => onAddToFavorite(obj)}
-								onPlus={(obj, isAdded) => onAddToCart(obj, isAdded)}
-								{...card}
-							/>
-						))
-				}
+				{renderItems()}
 			</div>
 		</div>
 	)
