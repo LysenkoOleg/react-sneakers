@@ -2,18 +2,8 @@ import React, { useState } from 'react';
 import Card from '../components/Card';
 import axios from 'axios';
 
-const Home = ({ setCartItems, cartItems, cards, onAddToFavorite, isLoading }) => {
+const Home = ({ setCartItems, cartItems, cards, onAddToFavorite, isLoading, onAddToCart }) => {
 	const [searchValue, setSearchValue] = useState('');
-
-	const onAddToCart = (obj) => {
-			if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
-				axios.delete(`https://636a08f8c07d8f936d913add.mockapi.io/cart/${obj.id}`)
-				setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
-			} else {
-				axios.post('https://636a08f8c07d8f936d913add.mockapi.io/cart', obj)
-				setCartItems(prev => [...prev, obj])
-			}
-	}
 
 	const onChangeSearchInput = (event) => {
 		setSearchValue(event.target.value)
