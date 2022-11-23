@@ -1,18 +1,15 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import Card from '../components/Card';
 import axios from "axios";
-import AppContext from "../context";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
 
-  const { onAddToFavorite } = useContext(AppContext)
-
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get('https://636a08f8c07d8f936d913add.mockapi.io/items')
+        const { data } = await axios.get('https://636a08f8c07d8f936d913add.mockapi.io/orders')
         setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []))
         setIsLoading(false)
       } catch (e) {
