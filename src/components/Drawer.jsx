@@ -1,6 +1,6 @@
 import React from "react";
 
-const Drawer = ({ onCloseCart }) => {
+const Drawer = ({ onCloseCart, items = [] }) => {
   return (
     <div className="overlay">
       <div className="drawer d-flex flex-column">
@@ -14,34 +14,26 @@ const Drawer = ({ onCloseCart }) => {
           />
         </h2>
         <div className="items">
-          <div className="cartItem d-flex align-center mb-20">
-            <img
-              className="mr-20"
-              width={70}
-              height={70}
-              src="/img/sneakers/1.jpg"
-              alt="sneakers"
-            />
-            <div className="mr-20">
-              <p className="mb-5">Мужские Кроссовки Nike Blazer Mid Suede</p>
-              <b>12 999 руб.</b>
+          {items.map((item) => (
+            <div className="cartItem d-flex align-center mb-20">
+              <img
+                className="mr-20"
+                width={70}
+                height={70}
+                src={item.imageUrl}
+                alt="sneakers"
+              />
+              <div className="mr-20">
+                <p className="mb-5">{item.title}</p>
+                <b>{item.price}</b>
+              </div>
+              <img
+                className="removeBtn"
+                src="/img/btn-remove.svg"
+                alt="remove"
+              />
             </div>
-            <img className="removeBtn" src="/img/btn-remove.svg" alt="remove" />
-          </div>
-          <div className="cartItem d-flex align-center">
-            <img
-              className="mr-20"
-              width={70}
-              height={70}
-              src="/img/sneakers/1.jpg"
-              alt="sneakers"
-            />
-            <div className="mr-20">
-              <p className="mb-5">Мужские Кроссовки Nike Blazer Mid Suede</p>
-              <b>12 999 руб.</b>
-            </div>
-            <img className="removeBtn" src="/img/btn-remove.svg" alt="remove" />
-          </div>
+          ))}
         </div>
         <div className="cartTotalBlock">
           <ul className="cartTotalBlock">

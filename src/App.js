@@ -2,9 +2,12 @@ import Card from "./components/Card/Card";
 import Header from "./components/Header/Header";
 import Drawer from "./components/Drawer";
 import { useEffect, useState } from "react";
+import { logDOM } from "@testing-library/react";
+import card from "./components/Card/Card";
 
 function App() {
   const [cartOpened, setCartOpened] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -24,9 +27,16 @@ function App() {
     fetchData();
   }, []);
 
+  const onAddToCart = (obj) => {
+    if (cartItems.some((d) => d.title === obj.title)) return;
+    setCartItems((prev) => [...prev, obj]);
+  };
+
   return (
     <div className="wrapper clear">
-      {cartOpened && <Drawer onCloseCart={() => setCartOpened(false)} />}
+      {cartOpened && (
+        <Drawer items={cartItems} onCloseCart={() => setCartOpened(false)} />
+      )}
       <Header onClickCart={() => setCartOpened(true)} />
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
@@ -42,6 +52,7 @@ function App() {
               key={index}
               {...data}
               onClickFavourite={() => console.log(data)}
+              onPlus={(obj) => onAddToCart(obj)}
             />
           ))}
         </div>
