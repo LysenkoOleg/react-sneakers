@@ -28,6 +28,23 @@ header {
   h3, p {
     margin: 0;
   }
+
+  li {
+    display: flex;
+    cursor: pointer;
+
+    &:hover {
+      span {
+        opacity: 0.7;
+      }
+    }
+
+    span {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5c5c5c;
+    }
+  }
 }
 
 .content {
