@@ -22,7 +22,7 @@ const Home = ({
         key={index}
         onClickFavourite={(obj) => onAddToFavourite(obj)}
         onPlus={(obj) => onAddToCart(obj)}
-        added={cartItems.some((obj) => Number(obj.id) === Number(data.id))}
+        added={cartItems.some((obj) => Number(obj?.id) === Number(data?.id))}
         loading={isLoading}
         {...data}
       />

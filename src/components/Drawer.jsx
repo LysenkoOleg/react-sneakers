@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import Info from "./Info";
 
 const Drawer = ({ onCloseCart, onRemove, items = [] }) => {
-  console.log(items);
+  const [isOrderComplete, setIsOrderComplete] = useState(false);
+  console.log(isOrderComplete);
+  const onClickOrder = () => {
+    setIsOrderComplete(true);
+    console.log(isOrderComplete);
+  };
+
   return (
     <div className="overlay">
       <div className="drawer d-flex flex-column">
@@ -53,30 +60,26 @@ const Drawer = ({ onCloseCart, onRemove, items = [] }) => {
                   <b>1074 руб. </b>
                 </li>
               </ul>
-              <button className="greenButton">
+              <button onClick={onClickOrder} className="greenButton">
                 Оформить заказ
                 <img src="/img/arrow.svg" alt="arrow" />
               </button>
             </div>
           </>
         ) : (
-          <div className="cartEmpty d-flex align-center justify-center flex-column flex">
-            <img
-              className="mb-20"
-              width={120}
-              height={120}
-              src="/img/empty-cart.jpg"
-              alt="empty"
-            />
-            <h2>Корзина пустая</h2>
-            <p className="opacity-6">
-              Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.
-            </p>
-            <button onClick={onCloseCart} className="greenButton">
-              <img src="/img/arrow.svg" alt="arrow" />
-              Вернуться назад
-            </button>
-          </div>
+          <Info
+            title={isOrderComplete ? "Заказ оформлен!" : "Корзина пустая"}
+            description={
+              isOrderComplete
+                ? "Ваш заказ #18 скоро будет передан курьерской доставке"
+                : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
+            }
+            image={
+              isOrderComplete
+                ? "/img/complete-order.png"
+                : "/img/empty-cart.jpg"
+            }
+          />
         )}
       </div>
     </div>
